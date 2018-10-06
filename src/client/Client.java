@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -71,7 +72,13 @@ public class Client {
                System.exit( -1 );
             }
 
-            System.out.println(user_name + " joined the network.");
+            String msg = user_name + " joined the network.";
+            Object[] temp = msg.split( " " );
+            Object[] notes = buidCmd( presenceService, reg, temp);
+            Broadcast notify = new Broadcast();
+            notify.execute( notes );
+
+            System.out.println(msg);
             //Enter data using BufferReader
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

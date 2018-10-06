@@ -32,7 +32,8 @@
 				</java>
 		</target>
 
-		<target name='run-client' depends='jar'>
+	<!-- usage: ant run-client -Dusername=ting -Dport=3000-->
+	<target name='run-client' depends='jar'>
 				<java  jar="simple-client.jar" fork="true">
 						<arg value="localhost"/>
 						<arg value="${username}"/>
