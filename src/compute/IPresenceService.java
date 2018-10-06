@@ -38,7 +38,7 @@ public interface IPresenceService extends Remote {
     boolean updateRegistrationInfo(RegistrationInfo reg) throws RemoteException;
 
     /**
-     * Unregister a client from the presence service.  Client must call this
+     * Unregister a client from the presence service.  MessageSender must call this
      * method when it terminates execution.
      * @param userName The name of the user to be unregistered.
      */

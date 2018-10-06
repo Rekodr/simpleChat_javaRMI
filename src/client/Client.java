@@ -1,7 +1,10 @@
 package client;
 
 import commands.*;
+import communication.MessageListener;
 import compute.IPresenceService;
+
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class Client {
             System.setSecurityManager(new SecurityManager());
         }
         try {
+
             String name = "PresenceService";
             Registry registry = LocateRegistry.getRegistry(args[0]);
             IPresenceService presenceService = (IPresenceService) registry.lookup(name);
@@ -43,7 +47,19 @@ public class Client {
                 System.exit(-1);
             }
 
-            System.out.println("Client: " + user_name + " joined the network.");
+            MessageListener listener;
+            try {
+                listener = new MessageListener(reg);
+                Thread thread = new Thread( listener );
+                thread.start();
+
+            } catch (IOException e) {
+               presenceService.unregister( reg.getUserName() );
+               System.out.println( "Please try a diffrent port." );
+               System.exit( -1 );
+            }
+
+            System.out.println(user_name + " joined the network.");
 
             while (true) {
                 Scanner sc = new Scanner(System.in);
