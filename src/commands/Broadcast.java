@@ -1,9 +1,10 @@
-package client;
+package commands;
 
+import client.RegistrationInfo;
 import compute.IPresenceService;
 import java.rmi.RemoteException;
 
-public class Broadcast implements ICommand{
+public class Broadcast implements ICommand {
     public void execute(Object[] argv) throws RemoteException {
         System.out.println( "Hello world" );
         for(RegistrationInfo registration : ((IPresenceService)argv[0]).listRegisteredUsers()) {

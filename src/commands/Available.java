@@ -1,9 +1,10 @@
-package client;
+package commands;
 
+import client.RegistrationInfo;
 import compute.IPresenceService;
 import java.rmi.RemoteException;
 
-public class Available implements ICommand{
+public class Available implements ICommand {
     public void execute(Object[] argv) throws RemoteException {
         if(((RegistrationInfo)argv[1]).getStatus() == true) {
             System.out.println("Your status is already set to: Available ");

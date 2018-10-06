@@ -1,5 +1,6 @@
-package client;
+package commands;
 
+import client.RegistrationInfo;
 import compute.IPresenceService;
 import java.rmi.RemoteException;
 

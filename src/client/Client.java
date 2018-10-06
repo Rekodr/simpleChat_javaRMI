@@ -1,5 +1,6 @@
 package client;
 
+import commands.*;
 import compute.IPresenceService;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
