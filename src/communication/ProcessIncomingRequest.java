@@ -16,24 +16,19 @@ public class ProcessIncomingRequest implements Runnable {
 
     @Override
     public void run() {
-        String line;
+        String message;
         BufferedReader is;
-        PrintStream os;
 
         try {
             is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            os = new PrintStream(clientSocket.getOutputStream());
 
-            while(true) {
-                line = is.readLine();
-                if(line == null) {
-                    break;
-                }
-                System.out.println("Received " + line);
-                os.println(line);
+            message = is.readLine();
+            if(message == null) {
+                return;
             }
+            System.out.println(message);
+
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

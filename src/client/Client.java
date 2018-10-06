@@ -4,7 +4,9 @@ import commands.*;
 import communication.MessageListener;
 import compute.IPresenceService;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -29,6 +31,16 @@ public class Client {
             System.exit( -1 );
         }
 
+        int port = 1999;
+        try {
+            port = Integer.parseInt( args[2] );
+        } catch (NumberFormatException e) {
+            System.out.println( "Default port 1999 used." );
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println( "Default port 1999 used." );
+        }
+
+
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
@@ -39,7 +51,7 @@ public class Client {
             IPresenceService presenceService = (IPresenceService) registry.lookup(name);
 
 
-            RegistrationInfo reg = new RegistrationInfo(user_name, "localhost", 1999, true);
+            RegistrationInfo reg = new RegistrationInfo(user_name, "localhost", port, true);
             boolean registered = presenceService.register(reg);
 
             if(!registered) {
@@ -55,16 +67,17 @@ public class Client {
 
             } catch (IOException e) {
                presenceService.unregister( reg.getUserName() );
-               System.out.println( "Please try a diffrent port." );
+               System.out.println( "Port: " + port + " is taken. Please try a different port." );
                System.exit( -1 );
             }
 
             System.out.println(user_name + " joined the network.");
+            //Enter data using BufferReader
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             while (true) {
-                Scanner sc = new Scanner(System.in);
-                if(sc.hasNext()) {
-                    String input = sc.nextLine();
+                String input = reader.readLine();
+                if(input != null) {
                     Object[] arg = input.split(" ");
                     if(commands.containsKey( arg[0] )) {
                         Object[] arguments = buidCmd( presenceService, reg, arg );

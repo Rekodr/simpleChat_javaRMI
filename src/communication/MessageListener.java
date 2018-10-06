@@ -11,6 +11,8 @@ public class MessageListener implements Runnable {
     private boolean status ;
     private int port = 1999;
     private ServerSocket echoServer = null;
+
+
     public MessageListener(RegistrationInfo reg) throws IOException {
         this.status = reg.getStatus();
         this.port = reg.getPort();

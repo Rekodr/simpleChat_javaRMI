@@ -36,6 +36,7 @@
 				<java  jar="simple-client.jar" fork="true">
 						<arg value="localhost"/>
 						<arg value="${username}"/>
+						<arg value="${port}"/>
 						<sysproperty key="java.security.policy" value="policy"/>
 						<sysproperty key="java.rmi.server.useCodebaseOnly" value="false"/>
 				</java>
